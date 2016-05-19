@@ -8,8 +8,8 @@ var app;
     displayVehicles();
     function displayVehicles() {
         var htmlString = '';
-        vehicles.forEach(function (v) {
-            htmlString += "<tr>\n        <td>" + v.make + "</td>\n        <td>" + v.model + "</td>\n        <td>" + v.color + "</td>\n        <td>" + v.numDoors + "</td>\n        <td>" + v.numSeats + "</td>\n        <td>N/A</td>\n        </tr>";
+        vehicles.forEach(function (v, index) {
+            htmlString += "<tr>\n        <td>" + v.make + "</td>\n        <td>" + v.model + "</td>\n        <td>" + v.color + "</td>\n        <td>" + v.numDoors + "</td>\n        <td>" + v.numSeats + "</td>\n        <td>N/A</td>\n        <td class=\"hcenter\"> <button class =\"btn btn-danger\"\n        onclick=\"app.deleteVehicle(" + index + ")\">Delete</button> </td>\n        </tr>";
         });
         $('#vehicle-display').html(htmlString);
     }
@@ -26,6 +26,11 @@ var app;
         }
     }
     app.chooseVehicleStyle = chooseVehicleStyle;
+    function deleteVehicle(index) {
+        vehicles.splice(index, 1);
+        displayVehicles();
+    }
+    app.deleteVehicle = deleteVehicle;
     function createCar() {
         var make = $('#car-make-input').val();
         var model = $('#car-model-input').val();

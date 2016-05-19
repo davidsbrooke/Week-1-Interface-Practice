@@ -1,28 +1,30 @@
 namespace app {
-  let vehicles: IVehicle[] = [];
-  vehicles.push(new models.Car("Mitsubishi", 'GTO', 'green', 2, 2));
-  vehicles.push(new models.Car('lexus', 'LFA', 'white', 2, 2));
-  vehicles.push(new models.Truck('Ferd', 'FTEEN Thousand','bluh', 4, 10));
-  vehicles.push(new models.Truck('Chevy', 'Chase','greh', 1, 1));
+    let vehicles: IVehicle[] = [];
+    vehicles.push(new models.Car("Mitsubishi", 'GTO', 'green', 2, 2));
+    vehicles.push(new models.Car('lexus', 'LFA', 'white', 2, 2));
+    vehicles.push(new models.Truck('Ferd', 'FTEEN Thousand', 'bluh', 4, 10));
+    vehicles.push(new models.Truck('Chevy', 'Chase', 'greh', 1, 1));
 
-displayVehicles();
-  function displayVehicles() {
-    let htmlString = '';
-    vehicles.forEach((v) => {
-      htmlString += `<tr>
+    displayVehicles();
+    function displayVehicles() {
+        let htmlString = '';
+        vehicles.forEach((v, index) => {
+            htmlString += `<tr>
         <td>${v.make}</td>
         <td>${v.model}</td>
         <td>${v.color}</td>
         <td>${v.numDoors}</td>
         <td>${v.numSeats}</td>
         <td>N/A</td>
+        <td class="hcenter"> <button class ="btn btn-danger"
+        onclick="app.deleteVehicle(${index})">Delete</button> </td>
         </tr>`
-    });
-  $('#vehicle-display').html(htmlString);
+        });
+        $('#vehicle-display').html(htmlString);
 
-  }
-  export function startVehicleCreate() {
-    $('#create-header').html(`
+    }
+    export function startVehicleCreate() {
+        $('#create-header').html(`
       <span>Choose a vehicle type: </span>
       <select class="form-control" style="max-width: 10%; display:
       inline-block;" id="create-vehicle-type" onchange="app.chooseVehicleStyle()">
@@ -34,12 +36,12 @@ displayVehicles();
 
       `);
 
-}
- export function chooseVehicleStyle(){
-   // alert ("test!");
-   let type = $('#create-vehicle-type').val();
-   if (type ==='Car') {
-     $('#create-header').html(`
+    }
+    export function chooseVehicleStyle() {
+        // alert ("test!");
+        let type = $('#create-vehicle-type').val();
+        if (type === 'Car') {
+            $('#create-header').html(`
        <div class="row">
             <div class="form-group">
               <label>Car Make</label>
@@ -75,28 +77,34 @@ displayVehicles();
             <button class="btn btn-success" onclick="app.createCar()">Submit</button>
           </div>`)
 
-   } else if (type === 'Truck') {
+        } else if (type === 'Truck') {
+            //  add create truck form
+            //  create truck method
+        }
+    }
 
-   }
- }
- export function createCar(){
-   let make = $('#car-make-input').val();
-   let model = $('#car-model-input').val();
-   let color = $('#car-color-input').val();
-   let numDoors = $('#car-numDoors-input').val();
-   let numSeats = $('#car-numSeats-input').val();
-   let isCool = $('#car-isCool-input').val();
+    export function deleteVehicle(index: number) {
+        vehicles.splice(index, 1);
+        displayVehicles();
+    }
+    export function createCar() {
+        let make = $('#car-make-input').val();
+        let model = $('#car-model-input').val();
+        let color = $('#car-color-input').val();
+        let numDoors = $('#car-numDoors-input').val();
+        let numSeats = $('#car-numSeats-input').val();
+        let isCool = $('#car-isCool-input').val();
 
-   let tempCar = new models.Car(make, model, color, numDoors, numSeats, isCool);
-   vehicles.push(tempCar);
-   displayVehicles();
-   //input value types
-  $('#car-make-input').val('');
-  $('#car-model-input').val('');
-  $('#car-color-input').val('');
-  $('#car-numDoors-input').val('');
-  $('#car-numSeats-input').val('');
-  $('#car-isCool-input').val('');
+        let tempCar = new models.Car(make, model, color, numDoors, numSeats, isCool);
+        vehicles.push(tempCar);
+        displayVehicles();
+        //input value types
+        $('#car-make-input').val('');
+        $('#car-model-input').val('');
+        $('#car-color-input').val('');
+        $('#car-numDoors-input').val('');
+        $('#car-numSeats-input').val('');
+        $('#car-isCool-input').val('');
 
- }
+    }
 }
