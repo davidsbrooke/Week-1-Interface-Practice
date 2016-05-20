@@ -1,9 +1,9 @@
 namespace app {
     let vehicles: IVehicle[] = [];
-    vehicles.push(new models.Car("Mitsubishi", 'GTO', 'green', 2, 2));
-    vehicles.push(new models.Car('lexus', 'LFA', 'white', 2, 2));
-    vehicles.push(new models.Truck('Ferd', 'FTEEN Thousand', 'bluh', 4, 10));
-    vehicles.push(new models.Truck('Chevy', 'Chase', 'greh', 1, 1));
+    vehicles.push(new models.Car("Mitsubishi", 'GTO', '#477513', 2, 2));
+    vehicles.push(new models.Car('lexus', 'LFA', '#ffffff', 2, 2));
+    vehicles.push(new models.Truck('Ferd', 'FTEEN Thousand', '#f11b49', 4, 10));
+    vehicles.push(new models.Truck('Chevy', 'Chase', 'rgb(74, 78, 66)', 1, 1));
 
     displayVehicles();
     function displayVehicles() {
@@ -12,7 +12,7 @@ namespace app {
             htmlString += `<tr>
         <td>${v.make}</td>
         <td>${v.model}</td>
-        <td>${v.color}</td>
+        <td style ="background-color:${v.color}"></td>
         <td>${v.numDoors}</td>
         <td>${v.numSeats}</td>
         <td>N/A</td>
@@ -28,9 +28,9 @@ namespace app {
       <span>Choose a vehicle type: </span>
       <select class="form-control" style="max-width: 10%; display:
       inline-block;" id="create-vehicle-type" onchange="app.chooseVehicleStyle()">
-      <option selected>----</option>
-      <option value="Car">Car</option>
-      <option value ="Truck">Truck</option>
+        <option disabled selected>----</option>
+        <option value="Car">Car</option>
+        <option value="Truck">Truck</option>
       </select>
       <span> or </span><a>cancel</a>
 
@@ -40,6 +40,7 @@ namespace app {
     export function chooseVehicleStyle() {
         // alert ("test!");
         let type = $('#create-vehicle-type').val();
+        console.log(type);
         if (type === 'Car') {
             $('#create-header').html(`
        <div class="row">
@@ -55,7 +56,6 @@ namespace app {
               <label>Color</label>
               <input id="car-color-input" type="color" class="form-control" />
             </div>
-          </div>
           <div class="row">
             <div class="form-group">
               <label>Number of Doors</label>
@@ -72,14 +72,45 @@ namespace app {
                 <option value="false">No</option>
               </select>
             </div>
-          </div>
           <div class="row">
             <button class="btn btn-success" onclick="app.createCar()">Submit</button>
           </div>`)
 
         } else if (type === 'Truck') {
-            //  add create truck form
-            //  create truck method
+            $('#create-header').html(`
+                <div class="row">
+                <div class="form-group">
+                <label> Truck Make</label>
+                <input id="car-make-input" class="form-control" />
+                </div>
+                <div class="form-group">
+                <label> Truck Model</label>
+                <input id="car-model-input" class="form-control" />
+                </div>
+                <div class="form-group">
+                <label> Truck Color </label>
+                <input id="car-color-input" type="color" class="form-control"/>
+                </div>
+                <div class="row">
+                <div class="form-group">
+                <label> Number of Doors</label>
+                <input id="car-numDoors-input" type="number" class="form-control"/>
+                </div>
+                <div class="form-group">
+                <label> Number of Seats</label>
+                <input id="car-numSeats-input" type="number" class="form-control"/>
+                </div>
+                <div class ="form-group">
+                <label> Has Bench</label>
+                <select id="car-hasBench-input" class="form-control">
+                <option value="true" selected>Yes</option>
+                <option value="false">No</option>
+                </select>
+                </div>
+                <div class ="row">
+                <button class = "btn btn-success" onclick="app.createCar()">Submit</button>
+                </div>
+                `)
         }
     }
 
@@ -94,10 +125,12 @@ namespace app {
         let numDoors = $('#car-numDoors-input').val();
         let numSeats = $('#car-numSeats-input').val();
         let isCool = $('#car-isCool-input').val();
+        let hasBench = $('#car-hasBench-input').val();
 
-        let tempCar = new models.Car(make, model, color, numDoors, numSeats, isCool);
+        let tempCar = new models.Car(make, model, color, numDoors, numSeats, isCool || hasBench);
         vehicles.push(tempCar);
         displayVehicles();
+        startVehicleCreate();
         //input value types
         $('#car-make-input').val('');
         $('#car-model-input').val('');
@@ -105,6 +138,7 @@ namespace app {
         $('#car-numDoors-input').val('');
         $('#car-numSeats-input').val('');
         $('#car-isCool-input').val('');
+        $('#car-hasBench-input').val('');
 
     }
 }

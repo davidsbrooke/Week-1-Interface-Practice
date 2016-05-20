@@ -10,12 +10,24 @@
 </head>
 
 <body>
+
+    <div class ="well container hcenter">
+        <span>Car or Truck? </span>
+        <select class="form-control" style="max-width: 10%; display:
+        inline-block;" id="filter-vehicle-type" onclick="app.typeSelector()">
+        <option selected>----</option>
+        <option value="Car">Car</option>
+        <option value ="Truck">Truck</option>
+        </select>
+        <!-- NOTE:  <span> or </span><a>cancel</a>-->
+    </div>
+
     <div class="well container hcenter" id="create-header">
         <a onclick="app.startVehicleCreate()">Add a Vehicle</a>
     </div>
     <br />
     <div class="well container hcenter">
-        <table class="table table-bordered table-striped">
+        <table class="table table-bordered table-striped" id="vehicles">
             <thead>
                 <tr>
                     <th>Make</th>

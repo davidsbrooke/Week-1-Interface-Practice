@@ -4,6 +4,7 @@ var app;
     (function (models) {
         var Car = (function () {
             function Car(make, model, color, numDoors, numSeats, looksCool) {
+                if (looksCool === void 0) { looksCool = true; }
                 this.make = make;
                 this.model = model;
                 this.color = color;
@@ -16,6 +17,7 @@ var app;
         models.Car = Car;
         var Truck = (function () {
             function Truck(make, model, color, numDoors, numSeats, hasBench) {
+                if (hasBench === void 0) { hasBench = true; }
                 this.make = make;
                 this.model = model;
                 this.color = color;

@@ -6,7 +6,7 @@ namespace app.models {
             public color: string,
             public numDoors: number,
             public numSeats: number,
-            public looksCool: boolean
+            public looksCool: boolean = true
         ) { }
     }
 
@@ -17,7 +17,7 @@ namespace app.models {
             public color: string,
             public numDoors: number,
             public numSeats: number,
-            public hasBench: boolean
+            public hasBench: boolean = true
         ) { }
     }
 }
